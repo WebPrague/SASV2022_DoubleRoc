@@ -22,6 +22,9 @@ def get_args():
         "--model", type=str, default="ECAPATDNN"
     )
     parser.add_argument(
+        "--norm", type=str, default="l2norm"
+    )
+    parser.add_argument(
         "--gpu", type=str, default="0"
     )
     return parser.parse_args()
@@ -101,7 +104,7 @@ def gen_dev_and_eval_item_list(enroll_paths, meta_path):
     return spk2ids, items
 
 
-def gen_loader(database_path, embedding_path, batch_size, n_cpu):
+def gen_loader(database_path, embedding_path, batch_size, n_cpu, norm):
 
     dev_database_path  = database_path + "/ASVspoof2019_LA_dev/"
     eval_database_path = database_path + "/ASVspoof2019_LA_eval/"
@@ -113,7 +116,7 @@ def gen_loader(database_path, embedding_path, batch_size, n_cpu):
     dev_spk2ids, dev_items = gen_dev_and_eval_item_list([database_path + '/ASVspoof2019_LA_asv_protocols/ASVspoof2019.LA.asv.dev.male.trn.txt',
                                                          database_path + '/ASVspoof2019_LA_asv_protocols/ASVspoof2019.LA.asv.dev.female.trn.txt'],
                                                         dev_trial_path)
-    dev_asv_embd = pickle.load(open(os.path.join(embedding_path, 'ASVspoof2019_LA_dev_l2norm.pk'), 'rb'))
+    dev_asv_embd = pickle.load(open(os.path.join(embedding_path, f'ASVspoof2019_LA_dev_{norm}.pk'), 'rb'))
 
     dev_dataset = Dataset_devNeval(base_dir=dev_database_path, spk2ids=dev_spk2ids, items=dev_items, asv_embd=dev_asv_embd)
     dev_loader = DataLoader(dataset=dev_dataset,
@@ -126,7 +129,7 @@ def gen_loader(database_path, embedding_path, batch_size, n_cpu):
     eval_spk2ids, eval_items = gen_dev_and_eval_item_list([database_path + '/ASVspoof2019_LA_asv_protocols/ASVspoof2019.LA.asv.eval.male.trn.txt',
                                                            database_path + '/ASVspoof2019_LA_asv_protocols/ASVspoof2019.LA.asv.eval.female.trn.txt'],
                                                           eval_trial_path)
-    eval_asv_embd = pickle.load(open(os.path.join(embedding_path, 'ASVspoof2019_LA_eval_l2norm.pk'), 'rb'))
+    eval_asv_embd = pickle.load(open(os.path.join(embedding_path, f'ASVspoof2019_LA_eval_{norm}.pk'), 'rb'))
 
     eval_dataset = Dataset_devNeval(base_dir=eval_database_path, spk2ids=eval_spk2ids, items=eval_items, asv_embd=eval_asv_embd)
     eval_loader = DataLoader(dataset=eval_dataset,
@@ -142,18 +145,21 @@ if __name__ == '__main__':
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print("Device: {}".format(device))
+    print(f'Model: {args.model}')
+    print(f'Norm: {args.norm}')
+    assert args.norm in ['l2norm', 'nonorm']
     LA_dataset_path = args.LA_dataset_path
     ASV_embedings_save_path = args.ASV_embedings_save_path
     cm_model = init_cm_model('./weights/AASIST.model')
     cos = nn.CosineSimilarity(dim=1, eps=1e-6).to(device)
-    dev_loader, eval_loader = gen_loader(LA_dataset_path, os.path.join(ASV_embedings_save_path, args.model), batch_size=64, n_cpu=4)
+    dev_loader, eval_loader = gen_loader(LA_dataset_path, os.path.join(ASV_embedings_save_path, args.model), batch_size=64, n_cpu=4, norm=args.norm)
     tag_2_loader = {'dev': dev_loader, 'eval': eval_loader}
     for tag in tag_2_loader.keys():
         loader = tag_2_loader[tag]
         id2score = {}
         id2label = {}
         scores_list, labels_list = [], []
-        for idx, (asv_embd_enr, asv_embd_tst, fusion_cm_data, label, index) in tqdm.tqdm(enumerate(loader), total=len(loader)):
+        for idx, (asv_embd_enr, asv_embd_tst, fusion_cm_data, label, index) in enumerate(loader):
             with torch.no_grad():
                 embd_cm, output = cm_model.forward(fusion_cm_data.to(device), aug=False)
                 score1 = output.softmax(-1).detach().cpu().numpy()[:, 1]
