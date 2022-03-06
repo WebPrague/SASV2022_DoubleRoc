@@ -7,14 +7,14 @@ We also provide some models that include the use of the WavLM model as a feature
 ./run.sh
 ```
 # 0x02 Test Speaker Embedings and CM pre-train model
-`This test script is only for fusion testing with a single CM system, using the simplest score sum method, just to compare the performance of different speaker recognition models.` 
+This test script is only for fusion testing with a single CM system, using the simplest score sum method, just to compare the performance of different speaker recognition models.
 
 ```python
 python test_asv_cm.py --LA_dataset_path LA --model ECAPATDNN 
 ```
 # 0x03 Result
-`From the results, it can be seen that simple fusion on each ASV model and pre-trained CM system can obtain results that are significantly ahead of the official baseline. Other complex results will be provided in the CM subdirectory, where more complex system fusion methods are provided, and of course better performance than the table below.  
-`
+From the results, it can be seen that simple fusion on each ASV model and pre-trained CM system can obtain results that are significantly ahead of the official baseline. Other complex results will be provided in the CM subdirectory, where more complex system fusion methods are provided, and of course better performance than the table below.  
+
 
 | ASV Model         |  DEV SV EER  |  DEV SPF EER  |  DEV SASV EER | EVAL SV EER  |  EVAL SPF EER  |  EAVL SASV EER | 
 | ---------------   | :---------   | :---------    |  :------------| :---------   |  :---------    |  :------------ | 
