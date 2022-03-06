@@ -1,5 +1,5 @@
 #!/bin/bash
-# must set LA dataset path!!!
+# !!!must set LA dataset path!!!
 LA_dataset_path=
 
 weights_dir="weights"
@@ -26,10 +26,10 @@ if [ ! -f $weights_dir/res2next50.model ];then
 fi
 # WavLM Large model is download from https://github.com/microsoft/UniSpeech/tree/main/downstreams/speaker_verification
 # the original model is store to GoogleDriver, can't download use CLI, so we restore to our server.
-if [ ! -f $weights_dir/wavlm_large_finetune.model ];then
-    wget "https://www.webprague.com/sasv2022_doubleroc_pretrain/wavlm_large_finetune.model"
-    mv wavlm_large_finetune.model $weights_dir/wavlm_large_finetune.model
-fi
+# if [ ! -f $weights_dir/wavlm_large_finetune.model ];then
+#     wget "https://www.webprague.com/sasv2022_doubleroc_pretrain/wavlm_large_finetune.model"
+#     mv wavlm_large_finetune.model $weights_dir/wavlm_large_finetune.model
+# fi
 # download pre-train CM model for test
 if [ ! -f $weights_dir/AASIST.model ];then
     wget "https://github.com/clovaai/aasist/raw/a04c9863f63d44471dde8a6abcb3b082b07cd1d1/models/weights/AASIST.pth"
