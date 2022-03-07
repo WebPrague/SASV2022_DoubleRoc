@@ -29,5 +29,54 @@ From the results, it can be seen that simple fusion on each ASV model and pre-tr
 | Res2NeXt50(NoNorm) |    0.54%    |      0.08%    |     0.23%     |     0.41%    |     1.34%      |       0.97%    |  
 
 ## （(ScoreSV + 1) * 0.5） * ScoreCM
-
+```
+Device: cuda
+Model: ECAPATDNN
+Norm: nonorm
+cm model load AASIST.model
+dev_sasvEER 1.08%, eval_svEER 1.82%, eval_spfEER 0.13%
+eval_sasvEER 1.40%, eval_svEER 1.53%, eval_spfEER 1.22%
+Device: cuda
+Model: ResNet34V2
+Norm: nonorm
+cm model load AASIST.model
+dev_sasvEER 0.54%, eval_svEER 1.01%, eval_spfEER 0.09%
+eval_sasvEER 0.76%, eval_svEER 0.74%, eval_spfEER 0.78%
+Device: cuda
+Model: Res2Net50V2
+Norm: nonorm
+cm model load AASIST.model
+dev_sasvEER 0.13%, eval_svEER 0.16%, eval_spfEER 0.07%
+eval_sasvEER 0.55%, eval_svEER 0.32%, eval_spfEER 0.74%
+Device: cuda
+Model: Res2NeXt50
+Norm: nonorm
+cm model load AASIST.model
+dev_sasvEER 0.20%, eval_svEER 0.54%, eval_spfEER 0.07%
+eval_sasvEER 0.66%, eval_svEER 0.41%, eval_spfEER 0.90%
+Device: cuda
+Model: ECAPATDNN
+Norm: l2norm
+cm model load AASIST.model
+dev_sasvEER 0.87%, eval_svEER 1.55%, eval_spfEER 0.08%
+eval_sasvEER 1.10%, eval_svEER 1.08%, eval_spfEER 1.10%
+Device: cuda
+Model: ResNet34V2
+Norm: l2norm
+cm model load AASIST.model
+dev_sasvEER 0.54%, eval_svEER 1.01%, eval_spfEER 0.09%
+eval_sasvEER 0.77%, eval_svEER 0.74%, eval_spfEER 0.79%
+Device: cuda
+Model: Res2Net50V2
+Norm: l2norm
+cm model load AASIST.model
+dev_sasvEER 0.13%, eval_svEER 0.16%, eval_spfEER 0.07%
+eval_sasvEER 0.55%, eval_svEER 0.32%, eval_spfEER 0.73%
+Device: cuda
+Model: Res2NeXt50
+Norm: l2norm
+cm model load AASIST.model
+dev_sasvEER 0.20%, eval_svEER 0.50%, eval_spfEER 0.07%
+eval_sasvEER 0.65%, eval_svEER 0.41%, eval_spfEER 0.90%
+```
 
