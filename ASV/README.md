@@ -13,6 +13,7 @@ This test script is only for fusion testing with a single CM system, using the s
 python test_asv_cm.py --LA_dataset_path LA --model ECAPATDNN 
 ```
 # 0x03 Result
+## ScoreSV + ScoreEM
 From the results, it can be seen that simple fusion on each ASV model and pre-trained CM system can obtain results that are significantly ahead of the official baseline. Other complex results will be provided in the CM subdirectory, where more complex system fusion methods are provided, and of course better performance than the table below.  
 
 
@@ -26,3 +27,6 @@ From the results, it can be seen that simple fusion on each ASV model and pre-tr
 | Res2Net50V2(NoNorm)|     0.16%   |      0.07%    |     0.13%     |     0.30%    |     1.10%      |       `0.78%`  |  
 | Res2NeXt50(L2Norm) |    0.50%    |      0.09%    |     0.23%     |     0.39%    |     1.32%      |       0.96%    |  
 | Res2NeXt50(NoNorm) |    0.54%    |      0.08%    |     0.23%     |     0.41%    |     1.34%      |       0.97%    |  
+
+## (ScoreSV + 1) * 0.5 + ScoreCM
+
