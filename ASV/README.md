@@ -28,5 +28,5 @@ From the results, it can be seen that simple fusion on each ASV model and pre-tr
 | Res2NeXt50(L2Norm) |    0.50%    |      0.09%    |     0.23%     |     0.39%    |     1.32%      |       0.96%    |  
 | Res2NeXt50(NoNorm) |    0.54%    |      0.08%    |     0.23%     |     0.41%    |     1.34%      |       0.97%    |  
 
-## (ScoreSV + 1) * 0.5 + ScoreCM
+## （(ScoreSV + 1) * 0.5） * ScoreCM
 
