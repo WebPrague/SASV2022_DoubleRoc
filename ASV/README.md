@@ -1,8 +1,7 @@
 # 0x00 ASV
 This directory provides code related to extracting speaker embeddings. 
 We used some public pre-trained models and some models we trained ourselves on the Voxceleb2 dataset to extract speaker embeddings.
-We also provide some models that include the use of the WavLM model as a feature extractor, and then fine-tuning on the Voxceleb2 dataset, because WavLM train with other datasets, so the score file we submit to the sponsor does not include the above Models. 
-# 0x01 Extract Speaker Embeddings
+We also provide some models that include the use of the WavLM model as a feature extractor, and then fine-tuning on the Voxceleb2 dataset.
 ```bash
 run_spk_ebd_extract.sh
 ```
