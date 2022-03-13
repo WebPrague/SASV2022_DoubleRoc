@@ -3,79 +3,34 @@ This directory provides code related to extracting speaker embeddings.
 We used some public pre-trained models and some models we trained ourselves on the Voxceleb2 dataset to extract speaker embeddings.
 We also provide some models that include the use of the WavLM model as a feature extractor, and then fine-tuning on the Voxceleb2 dataset.
 ```bash
-run_spk_ebd_extract.sh
+./run_spk_ebd_extract.sh
 ```
-# 0x02 Test Speaker Embedings and CM pre-train model
-This test script is only for fusion testing with a single CM system, using the simplest score sum method, just to compare the performance of different speaker recognition models.
+# 0x02 Test different ASV models and AASIST(CM) pre-train model
 
-```python
-python test_asv_cm.py --LA_dataset_path LA --model ECAPATDNN 
+```bash
+./run_test_nonorm.sh
 ```
+```bash
+./run_test_nonorm.sh
+```
+
 # 0x03 Result
-## ScoreSV + ScoreEM
-From the results, it can be seen that simple fusion on each ASV model and pre-trained CM system can obtain results that are significantly ahead of the official baseline. Other complex results will be provided in the CM subdirectory, where more complex system fusion methods are provided, and of course better performance than the table below.  
+# NoNorm Score Fusion
+
+| ASV Model         | DEV SASV EER |  DEV SV EER   |  DEV SPF EER  | EVAL SASV EER |  EVAL SV EER   |   EAVL SPF EER | 
+| ---------------   | :---------   | :---------    |  :------------| :---------    |  :---------    |  :------------ | 
+| ECAPA-TDNN        |     1.08%    |     1.82%     |     0.13%     |     1.40%     |     1.53%      |       1.22%    |  
+| SE-ResNet-34      |     0.54%    |     1.01%     |     0.09%     |     0.76%     |     0.74%      |       0.78%    |  
+| SE-Res2Net-50     |     0.13%    |     0.16%     |     0.07%     |     0.55%     |     0.32%      |       0.74%    |  
+| Res2NeXt-50       |     0.20%    |     0.54%     |     0.07%     |     0.66%     |     0.41%      |       0.90%    |  
+
+## L2Norm Score Fusion
+| ASV Model         | DEV SASV EER |  DEV SV EER   |  DEV SPF EER  | EVAL SASV EER |  EVAL SV EER   |   EAVL SPF EER | 
+| ---------------   | :---------   | :---------    |  :------------| :---------    |  :---------    |  :------------ | 
+| ECAPA-TDNN        |     0.87%    |     1.55%     |     0.08%     |     1.10%     |     1.08%      |       1.10%    |  
+| SE-ResNet-34      |     0.54%    |     1.01%     |     0.09%     |     0.77%     |     0.74%      |       0.79%    |  
+| SE-Res2Net-50     |     0.13%    |     0.16%     |     0.07%     |     0.55%     |     0.32%      |       0.73%    |  
+| Res2NeXt-50       |     0.20%    |     0.50%     |     0.07%     |     0.65%     |     0.41%      |       0.90%    |  
 
 
-| ASV Model         |  DEV SV EER  |  DEV SPF EER  |  DEV SASV EER | EVAL SV EER  |  EVAL SPF EER  |  EAVL SASV EER | 
-| ---------------   | :---------   | :---------    |  :------------| :---------   |  :---------    |  :------------ | 
-| ECAPATDNN(L2Norm) |   1.55%      |     0.12%     |      0.88%    |    1.07%     |    1.63%       |      1.35%     |  
-| ECAPATDNN(NoNorm) |    1.82%     |     0.19%     |      1.08%    |    1.51%     |    1.77%       |      1.60%     |  
-| ResNet34V2(L2Norm) |   1.01%     |     0.13%     |     0.54%     |     0.73%    |     1.17%      |       0.97%    |  
-| ResNet34V2(NoNorm) |   1.01%     |     0.13%     |     0.55%     |     0.73%    |     1.15%      |       0.96%    |  
-| Res2Net50V2(L2Norm)|     0.16%   |      0.07%    |     0.13%     |     0.30%    |     1.10%      |       `0.78%`  |  
-| Res2Net50V2(NoNorm)|     0.16%   |      0.07%    |     0.13%     |     0.30%    |     1.10%      |       `0.78%`  |  
-| Res2NeXt50(L2Norm) |    0.50%    |      0.09%    |     0.23%     |     0.39%    |     1.32%      |       0.96%    |  
-| Res2NeXt50(NoNorm) |    0.54%    |      0.08%    |     0.23%     |     0.41%    |     1.34%      |       0.97%    |  
-
-## （(ScoreSV + 1) * 0.5） * ScoreCM
-```
-Device: cuda
-Model: ECAPATDNN
-Norm: nonorm
-cm model load AASIST.model
-dev_sasvEER 1.08%, eval_svEER 1.82%, eval_spfEER 0.13%
-eval_sasvEER 1.40%, eval_svEER 1.53%, eval_spfEER 1.22%
-Device: cuda
-Model: ResNet34V2
-Norm: nonorm
-cm model load AASIST.model
-dev_sasvEER 0.54%, eval_svEER 1.01%, eval_spfEER 0.09%
-eval_sasvEER 0.76%, eval_svEER 0.74%, eval_spfEER 0.78%
-Device: cuda
-Model: Res2Net50V2
-Norm: nonorm
-cm model load AASIST.model
-dev_sasvEER 0.13%, eval_svEER 0.16%, eval_spfEER 0.07%
-eval_sasvEER 0.55%, eval_svEER 0.32%, eval_spfEER 0.74%
-Device: cuda
-Model: Res2NeXt50
-Norm: nonorm
-cm model load AASIST.model
-dev_sasvEER 0.20%, eval_svEER 0.54%, eval_spfEER 0.07%
-eval_sasvEER 0.66%, eval_svEER 0.41%, eval_spfEER 0.90%
-Device: cuda
-Model: ECAPATDNN
-Norm: l2norm
-cm model load AASIST.model
-dev_sasvEER 0.87%, eval_svEER 1.55%, eval_spfEER 0.08%
-eval_sasvEER 1.10%, eval_svEER 1.08%, eval_spfEER 1.10%
-Device: cuda
-Model: ResNet34V2
-Norm: l2norm
-cm model load AASIST.model
-dev_sasvEER 0.54%, eval_svEER 1.01%, eval_spfEER 0.09%
-eval_sasvEER 0.77%, eval_svEER 0.74%, eval_spfEER 0.79%
-Device: cuda
-Model: Res2Net50V2
-Norm: l2norm
-cm model load AASIST.model
-dev_sasvEER 0.13%, eval_svEER 0.16%, eval_spfEER 0.07%
-eval_sasvEER 0.55%, eval_svEER 0.32%, eval_spfEER 0.73%
-Device: cuda
-Model: Res2NeXt50
-Norm: l2norm
-cm model load AASIST.model
-dev_sasvEER 0.20%, eval_svEER 0.50%, eval_spfEER 0.07%
-eval_sasvEER 0.65%, eval_svEER 0.41%, eval_spfEER 0.90%
-```
 
