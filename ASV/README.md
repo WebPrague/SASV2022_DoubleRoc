@@ -4,7 +4,7 @@ We used some public pre-trained models and some models we trained ourselves on t
 We also provide some models that include the use of the WavLM model as a feature extractor, and then fine-tuning on the Voxceleb2 dataset, because WavLM train with other datasets, so the score file we submit to the sponsor does not include the above Models. 
 # 0x01 Extract Speaker Embeddings
 ```bash
-./run.sh
+run_spk_ebd_extract.sh
 ```
 # 0x02 Test Speaker Embedings and CM pre-train model
 This test script is only for fusion testing with a single CM system, using the simplest score sum method, just to compare the performance of different speaker recognition models.
