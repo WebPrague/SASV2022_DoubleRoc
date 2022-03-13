@@ -11,11 +11,11 @@ We also provide some models that include the use of the WavLM model as a feature
 ./run_test_nonorm.sh
 ```
 ```bash
-./run_test_nonorm.sh
+./run_test_l2norm.sh
 ```
 
 # 0x03 Result
-# NoNorm Score Fusion
+## NoNorm Score Fusion
 
 | ASV Model         | DEV SASV EER |  DEV SV EER   |  DEV SPF EER  | EVAL SASV EER |  EVAL SV EER   |   EAVL SPF EER | 
 | ---------------   | :---------   | :---------    |  :------------| :---------    |  :---------    |  :------------ | 
