@@ -164,7 +164,8 @@ if __name__ == '__main__':
                 embd_cm, output = cm_model.forward(fusion_cm_data.to(device), aug=False)
                 score1 = output.softmax(-1).detach().cpu().numpy()[:, 1]
                 score2 = cos(asv_embd_enr.to(device), asv_embd_tst.to(device)).detach().cpu().numpy()
-                score = score1 + score2
+                score2 = (score2 + 1) / 2
+                score = score1 * score2
                 index = index.detach().cpu().numpy()
                     
                 for i, l, s in zip(index, label, score):

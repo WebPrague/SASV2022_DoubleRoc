@@ -42,5 +42,3 @@ python save_embeddings.py --model ResNet34V2  --LA_dataset_path $LA_dataset_path
 python save_embeddings.py --model Res2Net50V2 --LA_dataset_path $LA_dataset_path
 python save_embeddings.py --model Res2NeXt50  --LA_dataset_path $LA_dataset_path
 
-# run test script
-./run_test.sh
