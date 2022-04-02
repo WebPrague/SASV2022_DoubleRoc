@@ -1,5 +1,7 @@
 # Norm-constrained Score-level Ensemble Methods for Spoofing-Aware Speaker Verification Challenge for InterSpeech 2022
 
+![figure_ppt](https://user-images.githubusercontent.com/17811250/161379125-5682585e-cbbd-4eba-a5cc-bddd645c9002.png)
+
 
 ## Citation
 Please cite the following paper if you use this repository:
