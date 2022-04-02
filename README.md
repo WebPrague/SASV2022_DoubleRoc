@@ -1,5 +1,17 @@
 # Norm-constrained Score-level Ensemble Methods for Spoofing-Aware Speaker Verification Challenge for InterSpeech 2022
 
+
+## Citation
+Please cite the following paper if you use this repository:
+```bibtex
+@inproceedings{zhang2022norm,
+  author={Zhang, Peng and Hu, Peng and Zhang, Xueliang},
+  title={Norm-constrained Score-level Ensemble for Spoofing Aware Speaker Verification},
+  year=2022,
+  booktitle={Proc. Interspeech (submitted},
+  }
+```
+
 ## Acknowledgments
 Parts of the code structure is inspired by [SASV baseline repository](https://github.com/sasv-challenge/SASVC2022_Baseline). We thank the authors for releasing their code and models.
 
