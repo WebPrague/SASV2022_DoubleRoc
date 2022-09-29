@@ -8,12 +8,14 @@
 ## Citation
 Please cite the following paper if you use this repository:
 ```bibtex
-@inproceedings{zhang2022norm,
-  author={Zhang, Peng and Hu, Peng and Zhang, Xueliang},
-  title={Norm-constrained Score-level Ensemble for Spoofing Aware Speaker Verification},
+@inproceedings{zhang22f_interspeech,
+  author={Peng Zhang and Peng Hu and Xueliang Zhang},
+  title={{Norm-constrained Score-level Ensemble for Spoofing Aware Speaker Verification}},
   year=2022,
-  booktitle={Proc. Interspeech (submitted},
-  }
+  booktitle={Proc. Interspeech 2022},
+  pages={4371--4375},
+  doi={10.21437/Interspeech.2022-470}
+}
 ```
 
 ## Acknowledgments
